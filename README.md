@@ -7,8 +7,8 @@ For that purpose I undid an old Tzitzit of mine, and measured each strand.
 ![image](https://user-images.githubusercontent.com/131248454/233946185-c152daad-5cf9-433f-9909-5c33e3042d80.png)
 
 
-My Tzitzit's 16 strings were comprised equally of white and blue, in accordance to the tradition of the medieval scholar and Rabbi Rashi, and his disciples, the Tosafot.
-I then ran a t-test to determine whether the differences should be attributed to the shade of the strings, or to positional causes.
+(My Tzitzit's 16 strings were comprised equally of white and blue, in accordance to the tradition of the medieval scholar and Rabbi Rashi, and his disciples, the Tosafot.)
+I then ran a t-test to determine whether the differences should be attributed to the shade of the strings, or to positional causes, And coded everything in Python.
 
     import pandas as pd
     import numpy as np
