@@ -66,7 +66,7 @@ And split the data into 2 groups whichever way possible:
     group_150 = df1[df1['orig_ln']==150]
     group_120 = df1[df1['orig_ln']==120]
     
- Having the strings distributed so evenly into 2 groups with identical compositions, I ruled that the proper test for statistical significance was a 2-sided t-test.
+ Having the strings fall neatly into 2 even, identical groups, regardless of the parameter, I ruled that the proper test for statistical significance was a 2-sided t-test.
  
  
     dif_color = ttest_rel(group_blue['difference'], group_white['difference'])
@@ -78,7 +78,7 @@ And split the data into 2 groups whichever way possible:
     print('right',' ','left',' ',dif_position_rl)
     print('150',' ','120',' ',dif_len)
 
-The color shows to be an overwhelmingly significant factor in the current length of the string, in stark comparison the the other factors tested.
+The color shows to be an overwhelmingly significant factor in the current length of the string, in stark comparison the other factors tested.
 The contrast stands out even when taking into account the small sample size:
 
 >white   blue   TtestResult(statistic=3.914522024707396, **pvalue=0.00578966336216682**, df=7)
@@ -89,16 +89,41 @@ The contrast stands out even when taking into account the small sample size:
 
 >150   120   TtestResult(statistic=0.1103354568734741, pvalue=0.9152400725029919, df=7)
 
-Anyway, visuals supporting the claim are always welcome, so I added a couple of rows:
+Visuals to support the claim are always welcome, so I added a couple of rows:
 
 
     pivoted = df.pivot(index=['f/b', 'r/l','orig_ln'], columns="color", values="difference")
     pivoted.insert(2, "hefresh",pivoted['blue']-pivoted['white'], True)
-    pivoted1 = df.pivot(index=['f/b', 'r/l','orig_ln'], columns="color", values="pres_ln")
-    pivoted.plot.bar(y=['blue','white'])
-    pivoted1.plot.bar()
+    ax = pivoted.plot.bar(y=['blue', 'white'], color=['blue', 'white'])
+    ax.set_facecolor((0.8,0.8,0.8))
+    fig = ax.get_figure()
+    fig.patch.set_facecolor((0.9,0.9,0.9))
+    ax.set_xlabel('')
+    plt.show()
     
-So, here are the charts in 2 displays, one using current string length, the other using length lost, All lengthes expressed in CM:
-![image](https://user-images.githubusercontent.com/131248454/233947719-d4b99bae-fde2-4111-a2de-2b00865529b7.png)
-![image](https://user-images.githubusercontent.com/131248454/233947780-f0aa91d3-045b-4752-9c2a-acd78ce8865a.png)
+
+This chart shows the length torn off pairs of strings, identical in all but the color
+
+![image](https://user-images.githubusercontent.com/131248454/233987897-909e6e6b-5d72-4fde-804b-8ee406b85a8f.png)
+
+
+    pivoted1 = df.pivot(index=['f/b', 'r/l','orig_ln'], columns="color", values="pres_ln")
+    ax1 = pivoted1.plot.bar(y=['blue', 'white'], color=['blue', 'white'])
+    ax1.set_facecolor((0.8,0.8,0.8))
+    fig1 = ax1.get_figure()
+    fig1.patch.set_facecolor((0.9,0.9,0.9))
+    ax1.set_xlabel('')
+    plt.show()
+    
+
+
+
+This chart shows the same pairs, this time expressed in terms of string remaining.
+
+
+![image](https://user-images.githubusercontent.com/131248454/233988101-1f5b5c7b-1ff9-4ff6-8dd6-5d65c61ab332.png)
+
+All figures are given in CM.
+
+
 
