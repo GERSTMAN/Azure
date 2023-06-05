@@ -13,7 +13,6 @@ I then ran a paired t-test to determine whether the differences should be attrib
 
     import pandas as pd
     import numpy as np
-    import datetime
     import matplotlib.pyplot as plt
     from scipy.stats import ttest_rel
 
